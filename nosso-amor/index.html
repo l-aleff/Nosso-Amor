@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor — Para Você</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-claro: #fff0f5;
+            --rosa: #ffb6c1;
+            --rosa-escuro: #e75480;
+            --vinho: #8b1c3f;
+            --vinho-profundo: #4a0e25;
+            --dourado: #d4a574;
+            --dourado-claro: #f5e6d3;
+            --branco: #ffffff;
+            --texto: #3d1f2b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #faf6f4 0%, var(--dourado-claro) 50%, #faf6f4 100%);
+            color: var(--texto);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Corações flutuando no fundo */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--rosa);
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+            font-size: 16px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header / Hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.6) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: var(--vinho);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--rosa-escuro);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.5s ease-out 0.5s both;
+        }
+
+        .hero-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--vinho);
+            font-size: 2rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* Contador */
+        .section-counter {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--vinho) 0%, var(--vinho-profundo) 100%);
+            color: white;
+        }
+
+        .section-counter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-counter .since-text {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .counter-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .counter-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .counter-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            color: var(--dourado);
+        }
+
+        .counter-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* Seções gerais */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--vinho);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rosa), var(--dourado));
+            margin: 0.8rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Mensagens de Amor */
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .message-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(139, 28, 63, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--rosa), var(--dourado), var(--vinho));
+        }
+
+        .message-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 20px 50px rgba(139, 28, 63, 0.15);
+        }
+
+        .message-card .heart-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .message-card p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--texto);
+            line-height: 1.6;
+        }
+
+        .message-card .signature {
+            margin-top: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--rosa-escuro);
+            font-weight: 500;
+        }
+
+        /* Galeria / Slideshow */
+        .gallery-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: var(--dourado-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--vinho);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .gallery-placeholder .plus {
+            font-size: 3rem;
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-placeholder span {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Modal / Slideshow */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            object-fit: contain;
+        }
+
+        .modal-nav {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            align-items: center;
+        }
+
+        .modal-nav button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-nav button:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-counter {
+            color: white;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--vinho);
+            color: white;
+        }
+
+        footer p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        footer .heart-beat {
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+            color: var(--rosa);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.15); }
+        }
+
+        /* Confete button */
+        .surprise-btn {
+            display: block;
+            margin: 3rem auto 0;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--rosa-escuro), var(--vinho));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(231, 84, 128, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .surprise-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(231, 84, 128, 0.5);
+        }
+
+        .surprise-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Confete CSS */
+        .confete {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: confete-fall 3s ease-out forwards;
+        }
+
+        @keyframes confete-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Animação de entrada */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .counter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modal-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Timeline decorativa */
+        .timeline-line {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--vinho), var(--rosa));
+            margin: 0 auto;
+            border-radius: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Corações flutuando no fundo -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Hero Section -->
+    <header class="hero" id="inicio">
+        <div class="hero-emoji">🎵</div>
+        <h1>Aleff & Mavi</h1>
+        <p class="subtitle">Cada momento com você é uma nova canção que escrevemos juntos...</p>
+        <a href="#contador" class="scroll-down">🎵</a>
+    </header>
+
+    <!-- Contador de Tempo -->
+    <section class="section-counter" id="contador">
+        <h2>Estamos Juntos Há</h2>
+        <p class="since-text" id="sinceText">desde o dia que mudou minha vida</p>
+        <div class="counter-grid">
+            <div class="counter-item fade-in">
+                <span class="counter-number" id="years">0</span>
+                <span class="counter-label">Anos</span>
+            </div>
+            <div class="counter-item fade-in">
+                <span class="counter-number" id="months">0</span>
+                <span class="counter-label">Meses</span>
+            </div>
+            <div class="counter-item fade-in">
+                <span class="counter-number" id="days">0</span>
+                <span class="counter-label">Dias</span>
+            </div>
+            <div class="counter-item fade-in">
+                <span class="counter-number" id="hours">0</span>
+                <span class="counter-label">Horas</span>
+            </div>
+            <div class="counter-item fade-in">
+                <span class="counter-number" id="minutes">0</span>
+                <span class="counter-label">Minutos</span>
+            </div>
+            <div class="counter-item fade-in">
+                <span class="counter-number" id="seconds">0</span>
+                <span class="counter-label">Segundos</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="timeline-line"></div>
+
+    <!-- Nossa Fé -->
+    <section id="fe">
+        <h2 class="section-title">Nossa Fé</h2>
+        <div class="messages-grid">
+            <div class="message-card fade-in" style="text-align: center;">
+                <span class="heart-icon">🙏</span>
+                <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                    "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Tudo sofre, tudo crê, tudo espera, tudo suporta. O amor jamais acaba."
+                </p>
+                <div class="signature">— 1 Coríntios 13:4-8</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="timeline-line"></div>
+
+    <!-- Aniversários -->
+    <section id="aniversarios">
+        <h2 class="section-title">Nossos Aniversários</h2>
+        <div class="messages-grid">
+            <div class="message-card fade-in">
+                <span class="heart-icon">🦁</span>
+                <p style="font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; font-size: 1.2rem; color: var(--vinho);">Aleff Lima</p>
+                <p style="font-family: 'Playfair Display', serif; font-style: italic; margin-top: 0.5rem;">"07 de setembro de 2000"</p>
+                <div class="signature">Virgo ♍</div>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">✨</span>
+                <p style="font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; font-size: 1.2rem; color: var(--vinho);">Maria Vitória "Mavi"</p>
+                <p style="font-family: 'Playfair Display', serif; font-style: italic; margin-top: 0.5rem;">"11 de junho de 2004"</p>
+                <div class="signature">Gêmeos ♊</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="timeline-line"></div>
+
+    <!-- Nossa Música -->
+    <section id="musica">
+        <h2 class="section-title">Nossa Música</h2>
+        <div class="messages-grid">
+            <div class="message-card fade-in">
+                <span class="heart-icon">🥁</span>
+                <p style="font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; font-size: 1.2rem; color: var(--vinho);">Aleff Lima</p>
+                <p style="font-family: 'Playfair Display', serif; font-style: italic; margin-top: 0.5rem;">Baixo & Bateria</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8; font-style: normal;">A batida que acelera meu coração e o groove que embala nossos dias.</p>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">🎸</span>
+                <p style="font-family: 'Poppins', sans-serif; font-style: normal; font-weight: 600; font-size: 1.2rem; color: var(--vinho);">Maria Vitória "Mavi"</p>
+                <p style="font-family: 'Playfair Display', serif; font-style: italic; margin-top: 0.5rem;">Baixo</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8; font-style: normal;">As linhas de baixo mais lindas que eu já ouvi, tanto na música quanto na vida.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="timeline-line"></div>
+
+    <!-- Mensagens de Amor -->
+    <section id="mensagens">
+        <h2 class="section-title">Mensagens de Amor</h2>
+        <div class="messages-grid">
+            <div class="message-card fade-in">
+                <span class="heart-icon">💖</span>
+                <p>"Se eu pudesse escolher entre respirar e te amar, usaria meu último suspiro para dizer que te amo, Mavi."</p>
+                <div class="signature">— Aleff</div>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">✨</span>
+                <p>"Mavi, você é a minha pessoa favorita em todo o universo. Com você, até os dias comuns viram aventuras mágicas."</p>
+                <div class="signature">— Aleff</div>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">🌹</span>
+                <p>"O sorriso mais bonito que já vi na minha vida é o seu, Maria Vitória. E a missão de todos os meus dias é fazê-lo aparecer."</p>
+                <div class="signature">— Aleff</div>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">🌙</span>
+                <p>"Se eu tivesse uma flor para cada vez que penso em você, Mavi, poderia andar no meu jardim para sempre."</p>
+                <div class="signature">— Aleff</div>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">☕</span>
+                <p>"Nosso amor é como aquele café da manhã juntos: quentinho, doce e impossível de viver sem, meu amor."</p>
+                <div class="signature">— Aleff</div>
+            </div>
+            <div class="message-card fade-in">
+                <span class="heart-icon">🔥</span>
+                <p>"Não importa o que o mundo jogue na gente, eu sempre vou escolher você, Mavi. Hoje, amanhã e sempre."</p>
+                <div class="signature">— Aleff Lima</div>
+            </div>
+        </div>
+        <button class="surprise-btn" onclick="createConfete()">💘 Clique aqui para uma surpresa!</button>
+    </section>
+
+    <div class="timeline-line"></div>
+
+    <!-- Galeria de Fotos -->
+    <section id="fotos" class="gallery-section">
+        <h2 class="section-title">Nossos Momentos</h2>
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-item fade-in" onclick="openModal(0)">
+                <img src="fotos/8.jpeg" alt="Momento 1" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(1)">
+                <img src="fotos/3.jpeg" alt="Momento 2" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(2)">
+                <img src="fotos/14.jpeg" alt="Momento 3" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(3)">
+                <img src="fotos/1.jpeg" alt="Momento 4" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(4)">
+                <img src="fotos/11.jpeg" alt="Momento 5" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(5)">
+                <img src="fotos/6.jpeg" alt="Momento 6" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(6)">
+                <img src="fotos/16.jpeg" alt="Momento 7" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(7)">
+                <img src="fotos/2.jpeg" alt="Momento 8" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(8)">
+                <img src="fotos/9.jpeg" alt="Momento 9" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(9)">
+                <img src="fotos/5.jpeg" alt="Momento 10" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(10)">
+                <img src="fotos/13.jpeg" alt="Momento 11" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(11)">
+                <img src="fotos/4.jpeg" alt="Momento 12" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(12)">
+                <img src="fotos/15.jpeg" alt="Momento 13" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(13)">
+                <img src="fotos/10.jpeg" alt="Momento 14" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(14)">
+                <img src="fotos/7.jpeg" alt="Momento 15" loading="lazy">
+            </div>
+            <div class="gallery-item fade-in" onclick="openModal(15)">
+                <img src="fotos/12.jpeg" alt="Momento 16" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Surpresa overlay -->
+    <div id="surpriseOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9998; justify-content:center; align-items:center; flex-direction:column; text-align:center; padding:2rem; overflow-y:auto;">
+        <div style="font-size:3rem; margin-bottom:0.5rem;">🎉💖🎉</div>
+        <h2 style="font-family:'Playfair Display', serif; font-size:2rem; color:#ffd700; margin-bottom:1rem;">Você é o meu maior presente!</h2>
+        
+        <!-- Foto aleatória da surpresa -->
+        <div style="position:relative; max-width:350px; width:100%; margin:1rem auto; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.5); border:3px solid #d4a574;">
+            <img id="surpriseImg" src="" alt="Nosso momento" style="width:100%; height:auto; display:block; max-height:40vh; object-fit:cover;">
+        </div>
+        
+        <p style="font-family:'Playfair Display', serif; font-size:1.2rem; color:white; font-style:italic; max-width:600px; line-height:1.6; margin-top:0.5rem;">
+            "Mavi, cada dia ao seu lado é uma bênção que Deus me deu. Te amo mais que tudo!"
+        </p>
+        <p style="font-family:'Poppins', sans-serif; font-size:0.9rem; color:#d4a574; margin-top:1rem;">— Aleff Lima</p>
+        <button onclick="closeSurprise()" style="margin-top:1.5rem; padding:0.8rem 2rem; background:linear-gradient(135deg, #e75480, #8b1c3f); color:white; border:none; border-radius:50px; font-family:'Poppins', sans-serif; font-size:1rem; cursor:pointer; box-shadow:0 10px 30px rgba(231,84,128,0.4); transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Fechar 💕</button>
+    </div>
+
+    <!-- Modal / Slideshow -->
+    <div class="modal" id="modal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <img src="" alt="Foto do momento" id="modalImg" onerror="showModalPlaceholder()" onload="hideModalPlaceholder()">
+        <div id="modalPlaceholder" style="display:none; color:white; font-family:'Playfair Display', serif; font-size:1.5rem; text-align:center; padding:2rem;">
+            <div style="font-size:4rem; margin-bottom:1rem;">📷</div>
+            <p>Coloque a foto na pasta <code style="background:rgba(255,255,255,0.2); padding:0.2rem 0.5rem; border-radius:4px;">fotos/</code></p>
+            <p style="font-size:1rem; margin-top:0.5rem; opacity:0.8; font-family:'Poppins', sans-serif;">Veja o arquivo README_FOTOS.txt</p>
+        </div>
+        <div class="modal-nav">
+            <button onclick="prevImage()">&#10094;</button>
+            <span class="modal-counter" id="modalCounter">1 / 16</span>
+            <button onclick="nextImage()">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Feito por <strong>Aleff Lima</strong> com <span class="heart-beat">❤️</span> para <strong>Maria Vitória</strong></p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">A nossa história começou em 20 de setembro de 2025 e continua sendo escrita...</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÃO: MUDE A DATA DO NAMORO AQUI!
+        // Formato: Ano, Mês (0-11), Dia, Hora, Minuto
+        // Exemplo: 15 de junho de 2021 às 20h00
+        // ============================================
+        const START_DATE = new Date(2025, 8, 20, 0, 0, 0);
+        // ============================================
+
+        // Atualiza texto "desde..."
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('sinceText').textContent = 
+            'desde ' + START_DATE.toLocaleDateString('pt-BR', options);
+
+        // Contador de tempo
+        function updateCounter() {
+            const now = new Date();
+            let diff = now - START_DATE;
+
+            if (diff < 0) diff = 0;
+
+            const seconds = Math.floor(diff / 1000) % 60;
+            const minutes = Math.floor(diff / (1000 * 60)) % 60;
+            const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            // Cálculo aproximado de anos e meses
+            let remainingDays = days;
+            let years = Math.floor(remainingDays / 365);
+            remainingDays -= years * 365;
+            let months = Math.floor(remainingDays / 30);
+            remainingDays -= months * 30;
+
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = remainingDays;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // Corações flutuando
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['❤', '💖', '💕', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.animationDelay = (Math.random() * 15) + 's';
+                container.appendChild(heart);
+            }
+        }
+        createFloatingHearts();
+
+        // Confete e Surpresa
+        function createConfete() {
+            // Escolhe uma foto aleatória das 16 fotos
+            const randomIndex = Math.floor(Math.random() * photos.length);
+            document.getElementById('surpriseImg').src = photos[randomIndex];
+            
+            // Mostra mensagem de surpresa
+            document.getElementById('surpriseOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Solta confetes coloridos
+            const colors = ['#e75480', '#ffb6c1', '#d4a574', '#8b1c3f', '#ff69b4', '#ffd700', '#fff', '#ff4500'];
+            for (let i = 0; i < 80; i++) {
+                const confete = document.createElement('div');
+                confete.className = 'confete';
+                confete.style.left = Math.random() * 100 + 'vw';
+                confete.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confete.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confete.style.width = (Math.random() * 12 + 6) + 'px';
+                confete.style.height = (Math.random() * 12 + 6) + 'px';
+                confete.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confete);
+                
+                setTimeout(() => confete.remove(), 5000);
+            }
+        }
+
+        function closeSurprise() {
+            document.getElementById('surpriseOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Animação de scroll (fade in)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Modal / Slideshow
+        const photos = [
+            'fotos/8.jpeg', 'fotos/3.jpeg', 'fotos/14.jpeg', 'fotos/1.jpeg',
+            'fotos/11.jpeg', 'fotos/6.jpeg', 'fotos/16.jpeg', 'fotos/2.jpeg',
+            'fotos/9.jpeg', 'fotos/5.jpeg', 'fotos/13.jpeg', 'fotos/4.jpeg',
+            'fotos/15.jpeg', 'fotos/10.jpeg', 'fotos/7.jpeg', 'fotos/12.jpeg'
+        ];
+        const captions = [
+            'Nosso primeiro momento juntos', 'Aquele dia especial...', 'Risadas e abraços', 'Minha pessoa favorita',
+            'Aventuras de dois', 'Para sempre nós', 'Momentos inesquecíveis', 'Sorrisos que iluminam',
+            'Juntos em tudo', 'Nosso mundo', 'Amor em cada detalhe', 'História sendo escrita',
+            'Dois corações', 'Vida ao seu lado', 'Nosso melhor lugar', 'Eternamente'
+        ];
+
+        let currentPhoto = 0;
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCounter = document.getElementById('modalCounter');
+
+        function showModalPlaceholder() {
+            modalImg.style.display = 'none';
+            document.getElementById('modalPlaceholder').style.display = 'block';
+        }
+
+        function hideModalPlaceholder() {
+            document.getElementById('modalPlaceholder').style.display = 'none';
+            modalImg.style.display = 'block';
+        }
+
+        function openModal(index) {
+            currentPhoto = index;
+            hideModalPlaceholder();
+            modalImg.src = photos[index];
+            modalCounter.textContent = `${index + 1} / ${photos.length}`;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextImage() {
+            currentPhoto = (currentPhoto + 1) % photos.length;
+            openModal(currentPhoto);
+        }
+
+        function prevImage() {
+            currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+            openModal(currentPhoto);
+        }
+
+        // Fechar modal com ESC e clique fora
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Smooth scroll para links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
